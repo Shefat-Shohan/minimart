@@ -53,25 +53,27 @@ export default function CartDrawer() {
                       </p>
                     </div>
                     <X
-                    onClick={()=>removeItem (items.id)}
+                      onClick={() => removeItem(items.id)}
                       className="size-4 hover:text-red-400 cursor-pointer"
                     />
                   </div>
                 </div>
               ))}
-              <div className="mt-10">
-                <div className="flex items-center justify-between pb-2">
-                  <p className="text-[16px] font-semibold text-gray-700 capitalize">
-                    subtotal
-                  </p>
-                  <span className="text-[16px] font-semibold text-gray-700">
-                    {subtotal}
-                  </span>
+              {cart.length > 0 && (
+                <div className="mt-10">
+                  <div className="flex items-center justify-between pb-2">
+                    <p className="text-[16px] font-semibold text-gray-700 capitalize">
+                      subtotal
+                    </p>
+                    <span className="text-[16px] font-semibold text-gray-700">
+                      {subtotal}
+                    </span>
+                  </div>
+                  <div>
+                    <Button className="w-full"> Checkout </Button>
+                  </div>
                 </div>
-                <div>
-                  <Button className="w-full"> Checkout </Button>
-                </div>
-              </div>
+              )}
             </SheetDescription>
           </SheetHeader>
         </SheetContent>
