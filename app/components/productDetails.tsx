@@ -41,20 +41,35 @@ export default function ProductDetails({ id }: Props) {
   const { data, loading } = useProducts(
     "https://admin.refabry.com/api/all/product/get"
   );
+  console.log(cart);
 
   const product = data?.find((product) => product.id == id);
   if (!product) return;
 
-  // add to cart
   const handleAddToCard = (productId: number) => {
     const item = data?.find((product) => product.id === productId);
-    if (!item) return;
-    setCart((prev) => [...prev, item]);
-    toast("Product added to cart");
+    if (!item) return toast.error("Product not found");
+
+    setCart((prevCart) => {
+      const existingItem = prevCart.find(
+        (cartItem) => cartItem.id === productId
+      );
+
+      if (existingItem) {
+        return prevCart.map((cartItem) =>
+          cartItem.id === productId
+            ? { ...cartItem, quantity: (cartItem.quantity as number) + 1 }
+            : cartItem
+        );
+      } else {
+        return [...prevCart, { ...item, quantity: 1 }];
+      }
+    });
+
+    toast.success("Product added to cart");
   };
 
   // place order
-
   const handleBuyNow = async () => {
     try {
       const response = await fetch(
@@ -170,7 +185,7 @@ export default function ProductDetails({ id }: Props) {
           </div>
           <div className="flex flex-col md:flex-row gap-2 items-center pt-4">
             <Button
-              // onClick={() => handleAddToCard(product.id)}
+              onClick={() => handleAddToCard(product.id)}
               className="bg-[#7B4FDB] hover:bg-[#9b70f7] w-full"
             >
               Add to Cart

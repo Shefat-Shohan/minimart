@@ -14,6 +14,7 @@ export type ProductDetails = {
   stock_location: string | null;
   buying_price: number;
   has_variation: number;
+  quantity?: number;
   is_discount: number;
   discount_amount: string;
   discount_date: string;
