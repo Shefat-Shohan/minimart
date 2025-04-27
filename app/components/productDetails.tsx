@@ -41,7 +41,6 @@ export default function ProductDetails({ id }: Props) {
   const { data, loading } = useProducts(
     "https://admin.refabry.com/api/all/product/get"
   );
-  console.log(cart);
 
   const product = data?.find((product) => product.id == id);
   if (!product) return;
@@ -158,10 +157,12 @@ export default function ProductDetails({ id }: Props) {
             >
               {product.price} TK
             </span>
-            {product.discount_amount && (
+            {product.discount_amount ? (
               <p className="text-xl font-bold">
                 {product.price - Number(product.discount_amount)} Tk
               </p>
+            ) : (
+              <span>{product.price}</span>
             )}
           </div>
           {/* product description */}

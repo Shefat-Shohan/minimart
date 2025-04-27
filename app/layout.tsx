@@ -4,6 +4,7 @@ import Header from "./sections/Header";
 import Footer from "./sections/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { Inter } from "next/font/google";
+import { AddCartContextProvider } from "@/context/AddCartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,10 +23,12 @@ export default function RootLayout({
       <body
         className={`${inter.className} min-h-screen flex flex-col justify-between antialiased`}
       >
-        <Header />
-        {children}
-        <Toaster />
-        <Footer />
+        <AddCartContextProvider>
+          <Header />
+          {children}
+          <Toaster />
+          <Footer />
+        </AddCartContextProvider>
       </body>
     </html>
   );

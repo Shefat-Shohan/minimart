@@ -3,6 +3,7 @@ import { navbar } from "@/data";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import CartDrawer from "../components/CartDrawer";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +26,7 @@ export default function Header() {
                   </Link>
                 </li>
               ))}
+              <CartDrawer />
             </ul>
             {/* mobile menu toggle */}
             <button
@@ -53,6 +55,7 @@ export default function Header() {
               {menu.name}
             </Link>
           ))}
+          <CartDrawer />
         </div>
       </div>
     </div>

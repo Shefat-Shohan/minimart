@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import { ProductDetails } from "@/data/types";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface CartContextShape {
   cart: ProductDetails[];
@@ -22,7 +22,17 @@ export const useCartContext = () => {
 export const AddCartContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  const [cart, setCart] = useState<ProductDetails[]>([]);
+  const storedCart =
+    typeof window !== "undefined" ? localStorage.getItem("cart") : null;
+  const initialCart = storedCart ? JSON.parse(storedCart) : [];
+
+  const [cart, setCart] = useState<ProductDetails[]>(initialCart);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart]);
 
   return (
     <AddCartContext.Provider value={{ cart, setCart }}>
