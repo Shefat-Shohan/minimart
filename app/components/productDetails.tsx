@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { useCartContext } from "@/context/AddCartContext";
 import { toast } from "sonner";
+import Title from "./Title";
 
 type Props = {
   id: number;
@@ -77,17 +78,20 @@ export default function ProductDetails({ id }: Props) {
           }),
         }
       );
+
       if (!response.ok) {
         throw new Error("Api error");
       }
+
       const data = await response.json();
       console.log("Order placed", data);
-      toast("Your order is palced.");
+      toast("Your order is placed.");
     } catch (error) {
       console.log(error);
-      toast("couldn't place the orders.");
+      toast("Couldn't place the order.");
     }
   };
+
   return (
     <section>
       <div className="grid md:grid-cols-2 gap-10">
@@ -127,7 +131,9 @@ export default function ProductDetails({ id }: Props) {
           <p className="text-gray-500 capitalize pb-1.5">
             {product.category.name}
           </p>
-          <h1 className="text-3xl font-bold pb-4 capitalize">{product.name}</h1>
+          <h1 className="lg:text-3xl text-xl font-bold pb-4 capitalize">
+            {product.name}
+          </h1>
           {/* price */}
           <div className="pb-4 flex items-center gap-2">
             <span
@@ -149,7 +155,7 @@ export default function ProductDetails({ id }: Props) {
             <p className="py-1 leading-[22px] text-gray-600 text-sm">
               {description
                 ? product.short_desc
-                : product.short_desc.slice(0, 220)} {" "}
+                : product.short_desc.slice(0, 220)}{" "}
               <span
                 className="text-[#7B4FDB] font-semibold cursor-pointer"
                 onClick={() => setDescription((prev) => !prev)}
@@ -164,7 +170,7 @@ export default function ProductDetails({ id }: Props) {
           </div>
           <div className="flex flex-col md:flex-row gap-2 items-center pt-4">
             <Button
-             // onClick={() => handleAddToCard(product.id)}
+              // onClick={() => handleAddToCard(product.id)}
               className="bg-[#7B4FDB] hover:bg-[#9b70f7] w-full"
             >
               Add to Cart
@@ -213,7 +219,7 @@ export default function ProductDetails({ id }: Props) {
         </div>
       </div>
       <div>
-        <h2 className="text-3xl font-bold pt-20 pb-10">Recommended Product</h2>
+        <Title title="Recommended Product" className="sm:text-left" />
         <RecommendedProduct productId={id} />
       </div>
     </section>

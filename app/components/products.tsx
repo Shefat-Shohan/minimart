@@ -11,7 +11,7 @@ export default function Products() {
   return (
     <div className="">
       {!loading ? (
-        <div className="grid lg:grid-cols-4 md:grid-cols-2  md:gap-10 gap-4">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2  md:gap-10 gap-10">
           {products?.map((product: ProductDetails) => (
             <Link key={product.id} href={`/product/${product.id}`}>
               <ProductCard product={product} />
